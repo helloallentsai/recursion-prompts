@@ -73,6 +73,7 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+	var result = [];
 };
 
 // 7. Compute the exponent of a number.
@@ -119,6 +120,13 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+	string = string.toUpperCase();
+	if (string.length === 0 || string.length === 1) {
+		return true;
+	} else if (string[0] === string[string.length-1]) {
+		return palindrome(string.slice(1, string.length-1))
+	}
+	return false;
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
