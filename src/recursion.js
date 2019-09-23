@@ -33,6 +33,16 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	var sum = 0;
+	for (var i = 0; i < array.length; i++) {
+		if (Array.isArray(array[i])) { 
+			sum += arraySum(array[i]);
+		}
+		if (array[i] === Math.round(array[i])) {
+			sum += array[i];
+		}
+	}
+	return sum;
 };
 
 // 4. Check if a number is even.
@@ -87,6 +97,15 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n === 1) {
+	return true;
+	} else if (n < 2) {
+    return false;
+  } else if (n === 2) {
+    return true;
+  } else if (n > 2) {
+    return powerOfTwo(n/2);
+  }
 };
 
 // 9. Write a function that reverses a string.
@@ -107,7 +126,15 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
+
 var modulo = function(x, y) {
+  if (y === 0) {
+  	return NaN;
+  }
+  if (x >= y) {
+    return modulo(x-y, y)
+  }
+  return x;
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -115,9 +142,11 @@ var modulo = function(x, y) {
 var multiply = function(x, y) {
 };
 
+
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -138,10 +167,24 @@ var compareStr = function(str1, str2) {
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+	var result = [];
+	if (str.length === 0) {
+		return result;
+	} else {
+		result.push(str[0]);
+		return result.concat(createArray(str.substring(1)));
+	}
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+	var result = [];
+	if (array.length === 0) {
+		return result;
+	} else {
+		result.push(array.pop());
+		return result.concat(reverseArr(array));
+	}
 };
 
 // 18. Create a new array with a given value and length.
