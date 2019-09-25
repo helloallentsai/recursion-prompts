@@ -148,8 +148,16 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+	if (y === 0) {
+		return 0;
+	}
+	if (y > 0) {
+		return x + multiply(x, y-1);
+	}
+  if (y < 0) {
+    return -x - multiply(-x, y+1);
+  }
 };
-
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
@@ -170,7 +178,13 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
-
+	if(str1[0] === str2[0] && str1.length === 0) {
+		return true;
+	}
+	if(str1[0] === str2[0]) {
+		return compareStr(str1.slice(1), str2.slice(1));
+	}
+	return false;
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
