@@ -170,6 +170,7 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
@@ -220,11 +221,23 @@ var fizzBuzz = function(n) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+	if (array.length === 0) {
+		return 0;
+	} else {
+		return (array[0] === value) + countOccurrence(array.slice(1), value);
+	}
 };
 
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+	var result = [];
+	if (array.length === 0) {
+		return result;
+	} else {
+		result.push(callback(array[0]));
+		return result.concat(rMap(array.slice(1), callback));
+	}
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -266,11 +279,25 @@ var nthFibo = function(n) {
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+	var result = [];
+	if (array.length === 0) {
+		return result;
+	} else {
+		result.push(array[0].toUpperCase());
+		return result.concat(capitalizeWords(array.slice(1)));
+	};
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+	var result = [];
+	if (array.length === 0) {
+		return result;
+	} else {
+		result.push(array[0][0].toUpperCase() + array[0].slice(1));
+		return result.concat(capitalizeFirst(array.slice(1)));
+	};
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
@@ -287,12 +314,31 @@ var nestedEvenSum = function(obj) {
 
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
-var flatten = function(array) {
-};
+var flatten = function(arr) {
+	var newArr = [];
+	for (var i = 0; i < arr.length; i++) {
+	  if (Array.isArray(arr[i])) {
+		newArr = newArr.concat(flatten(arr[i]));
+	  } else {
+		newArr.push(arr[i]);
+	  }
+	}
+	return newArr;
+  };
 
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
-var letterTally = function(str, obj) {
+var letterTally = function(str, obj = {}) {
+	
+	if (str.length === 0) {
+		return obj;
+	}
+	if (!obj.hasOwnProperty(str[0])) {
+		obj[str[0]] = 1;
+	} else {
+		obj[str[0]] += 1;
+	}
+	return letterTally(str.substring(1), obj);
 };
 
 // 32. Eliminate consecutive duplicates in a list. If the list contains repeated
@@ -301,18 +347,46 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
+	var result = [];
+	if (list.length === 0) {
+		return result;
+	} else {
+		if (list[0] !== list[1]) {
+			result.push(list[0]);
+		}
+		return result.concat(compress(list.slice(1)));
+	}
 };
 
 // 33. Augment every element in a list with a new value where each element is an array
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+	if (array.length === 0) {
+		return array;
+	} else {
+		array[0].push(aug);
+		return [array[0]].concat(augmentElements(array.slice(1), aug));
+	}
 };
 
 // 34. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+	var result = [];
+	if (array.length === 0) {
+		return result;
+	} else {
+		if (array[0] !== 0) {
+			result.push(array[0]);
+			return result.concat(minimizeZeroes(array.slice(1)));
+		} else if (array[0] !== array[1]) {
+			result.push(array[0]);
+			return result.concat(minimizeZeroes(array.slice(1)));
+		}
+		return result.concat(minimizeZeroes(array.slice(1)));
+	}
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
